@@ -1,6 +1,6 @@
 require_relative "base"
 
-module Helm
+module Rhelm
   module Subcommand
     ## Helm version subcommand: `helm version [flags]`.
     ## docs: https://helm.sh/docs/helm/helm_version/
@@ -21,16 +21,12 @@ module Helm
         "version"
       end
 
-      def subcommand
-        "version #{flags}"
-      end
-
-      def cli_options
-        super.tap do |options|
-          options[:help] = "--help" if help
-          options[:short] = "--short" if short
-          options[:template] = "--template #{template}" if template
-        end
+      def cli_args
+        super.tap do |args|
+          args << '--help' if help
+          args << '--short' if short
+          args << ['--template', template] if template
+        end.flatten
       end
     end
   end

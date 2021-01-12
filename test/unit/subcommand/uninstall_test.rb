@@ -1,10 +1,10 @@
 require "test_helper"
-require "helm/subcommand/uninstall"
+require "rhelm/subcommand/uninstall"
 
-describe Helm::Subcommand::Uninstall do
+describe Rhelm::Subcommand::Uninstall do
   describe "with a subject with no flags" do
     let(:subject) do
-      ::Helm::Subcommand::Uninstall.new("example-release")
+      ::Rhelm::Subcommand::Uninstall.new("example-release")
     end
 
     describe "#subject_name" do

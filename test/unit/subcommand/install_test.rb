@@ -1,10 +1,10 @@
 require "test_helper"
-require "helm/subcommand/install"
+require "rhelm/subcommand/install"
 
-describe Helm::Subcommand::Install do
+describe Rhelm::Subcommand::Install do
   describe "with a subject without flags" do
     let(:subject) do
-      ::Helm::Subcommand::Install.new("example-name", "example-chart")
+      ::Rhelm::Subcommand::Install.new("example-name", "example-chart")
     end
 
     describe "#subject_name" do

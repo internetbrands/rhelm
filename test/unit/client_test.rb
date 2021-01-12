@@ -1,10 +1,10 @@
 require "test_helper"
-require "helm/client"
+require "rhelm/client"
 
-describe Helm::Client do
+describe Rhelm::Client do
   describe "with a subject using helm binary already in PATH" do
     let(:subject) do
-      ::Helm::Client.new
+      ::Rhelm::Client.new
     end
 
     describe "#run_command" do

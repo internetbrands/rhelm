@@ -1,6 +1,6 @@
 require_relative "base"
 
-module Helm
+module Rhelm
   module Subcommand
     ## Helm rollback subcommand: `helm rollback <RELEASE> [REVISION] [flags]`.
     ## docs: https://helm.sh/docs/helm/helm_rollback/
@@ -37,22 +37,21 @@ module Helm
         "rollback"
       end
 
-      def subcommand
-        "rollback #{release} #{revision} #{flags}"
-      end
+      def cli_args
+        super.tap do |args|
+          args << '--cleanup-on-fail' if cleanup_on_fail
+          args << '--dry-run' if dry_run
+          args << '--force' if force
+          args << '--help' if help
+          args << ['--history-max-int', history_max_int] if history_max_int
+          args << '--no-hooks' if no_hooks
+          args << '--recreate-pods' if recreate_pods
+          args << ['--timeout-duration', timeout_duration] if timeout_duration
+          args << '--wait' if wait
 
-      def cli_options
-        super.tap do |options|
-          options[:cleanup_on_fail] = "--cleanup-on-fail" if cleanup_on_fail
-          options[:dry_run] = "--dry-run" if dry_run
-          options[:force] = "--force" if force
-          options[:help] = "--help" if help
-          options[:history_max_int] = "--history-max-int #{history_max_int}" if history_max_int
-          options[:no_hooks] = "--no-hooks" if no_hooks
-          options[:recreate_pods] = "--recreate-pods" if recreate_pods
-          options[:timeout_duration] = "--timeout-duration #{timeout_duration}" if timeout_duration
-          options[:wait] = "--wait" if wait
-        end
+          args << release
+          args << revision
+        end.flatten
       end
     end
   end

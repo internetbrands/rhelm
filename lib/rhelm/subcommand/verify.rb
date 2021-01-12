@@ -1,6 +1,6 @@
 require_relative "base"
 
-module Helm
+module Rhelm
   module Subcommand
     ## Helm verify subcommand: `helm verify PATH [flags]`.
     ## docs: https://helm.sh/docs/helm/helm_verify/
@@ -19,14 +19,12 @@ module Helm
         "verify"
       end
 
-      def subcommand
-        "verify #{path} #{flags}"
-      end
+      def cli_args
+        super.tap do |args|
+          args << ['--keyring', keyring] if keyring
 
-      def cli_options
-        super.tap do |options|
-          options[:keyring] = "--keyring #{keyring}" if keyring
-        end
+          args << path
+        end.flatten
       end
     end
   end

@@ -1,6 +1,6 @@
 require_relative "base"
 
-module Helm
+module Rhelm
   module Subcommand
     ## Helm history subcommand: `helm history RELEASE_NAME [flags]`.
     ## docs: https://helm.sh/docs/helm/helm_history/
@@ -23,16 +23,14 @@ module Helm
         "history"
       end
 
-      def subcommand
-        "history #{release_name} #{flags}"
-      end
+      def cli_args
+        super.tap do |args|
+          args << "--help" if help
+          args << [ '--max', max ] if max
+          args << [ '--output', output ] if output
 
-      def cli_options
-        super.tap do |options|
-          options[:help] = "--help" if help
-          options[:max] = "--max #{max}" if max
-          options[:output] = "--output #{output}" if output
-        end
+          args << release_name
+        end.flatten
       end
     end
   end

@@ -1,6 +1,6 @@
 require_relative "base"
 
-module Helm
+module Rhelm
   module Subcommand
     ## Helm uninstall subcommand: `helm uninstall RELEASE_NAME [...] [flags]`.
     ## docs: https://helm.sh/docs/helm/helm_uninstall/
@@ -17,12 +17,9 @@ module Helm
         "uninstall"
       end
 
-      def subcommand
-        "uninstall #{release_name} #{flags}"
-      end
-
-      def cli_options
-        {}.tap do |options|
+      def cli_args
+        super.tap do |args|
+          args << release_name
         end
       end
     end

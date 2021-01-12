@@ -1,6 +1,6 @@
 require_relative "base"
 
-module Helm
+module Rhelm
   module Subcommand
     ## Helm test subcommand: `helm test [RELEASE] [flags]`.
     ## docs: https://helm.sh/docs/helm/helm_test/
@@ -23,16 +23,14 @@ module Helm
         "test"
       end
 
-      def subcommand
-        "test #{release} #{flags}"
-      end
+      def cli_args
+        super.tap do |args|
+          args << '--help' if help
+          args << '--logs' if logs
+          args << ['--timeout', timeout] if timeout
 
-      def cli_options
-        super.tap do |options|
-          options[:help] = "--help" if help
-          options[:logs] = "--logs" if logs
-          options[:timeout] = "--timeout #{timeout}" if timeout
-        end
+          args << release
+        end.flatten
       end
     end
   end

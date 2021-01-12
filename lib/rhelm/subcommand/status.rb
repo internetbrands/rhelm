@@ -1,6 +1,6 @@
 require_relative "base"
 
-module Helm
+module Rhelm
   module Subcommand
     ## Helm status subcommand: `helm status RELEASE_NAME [flags]`.
     ## docs: https://helm.sh/docs/helm/helm_status/
@@ -9,7 +9,7 @@ module Helm
                   :help
 
       def initialize(release_name, options = {})
-        super
+        super(options)
 
         @release_name = release_name
         @help = options[:help]
@@ -19,14 +19,24 @@ module Helm
         "status"
       end
 
-      def subcommand
-        "status #{release_name} #{flags}"
+      def exists?
+        run(raise_on_error: false) do |lines,status|
+          if status == 0
+            true
+          elsif status == 1 && /Error: release: not found/m.match(lines)
+            false
+          else
+            report_failure(lines, status)
+          end
+        end
       end
 
-      def cli_options
-        super.tap do |options|
-          options[:help] = "--help" if help
-        end
+      def cli_args
+        super.tap do |args|
+          args << '--help' if help
+
+          args << release_name
+        end.flatten
       end
     end
   end

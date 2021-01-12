@@ -1,10 +1,10 @@
 require "test_helper"
-require "helm/subcommand/version"
+require "rhelm/subcommand/version"
 
-describe Helm::Subcommand::Version do
+describe Rhelm::Subcommand::Version do
   describe "with a subject with no flags" do
     let(:subject) do
-      ::Helm::Subcommand::Version.new
+      ::Rhelm::Subcommand::Version.new
     end
 
     describe "#subcommand_name" do

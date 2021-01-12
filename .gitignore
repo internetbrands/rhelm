@@ -7,3 +7,7 @@
 /spec/reports/
 /tmp/
 *.gem
+Gemfile.lock
+.ruby-version
+.ruby-gemset
+.byebug_history

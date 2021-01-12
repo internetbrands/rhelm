@@ -1,10 +1,10 @@
 require "test_helper"
-require "helm/subcommand/upgrade"
+require "rhelm/subcommand/upgrade"
 
-describe Helm::Subcommand::Upgrade do
+describe Rhelm::Subcommand::Upgrade do
   describe "with a subject with no flags" do
     let(:subject) do
-      ::Helm::Subcommand::Upgrade.new("example-release", "example-chart")
+      ::Rhelm::Subcommand::Upgrade.new("example-release", "example-chart")
     end
 
     describe "#subject_name" do

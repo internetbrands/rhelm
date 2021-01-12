@@ -1,10 +1,10 @@
 require "test_helper"
-require "helm/subcommand/verify"
+require "rhelm/subcommand/verify"
 
-describe Helm::Subcommand::Verify do
+describe Rhelm::Subcommand::Verify do
   describe "with a subject with no flags" do
     let(:subject) do
-      ::Helm::Subcommand::Verify.new("/tmp/example-path")
+      ::Rhelm::Subcommand::Verify.new("/tmp/example-path")
     end
 
     describe "#subject_name" do
