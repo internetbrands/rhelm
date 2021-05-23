@@ -5,6 +5,7 @@ Gem::Specification.new do |spec|
   spec.version       = Rhelm::VERSION
   spec.authors       = ["Jack Newton", "Nick Marden"]
   spec.email         = ["jnewton@avvo.com", "nick@marden.org"]
+  spec.licenses      = ["MIT"]
 
   spec.summary       = "A wrapper around helm3, including error detection and output parsing callback support"
   spec.description   = "Invoke Helm 3.x commands from Ruby with easy result handling"
