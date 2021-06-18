@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "A wrapper around helm3, including error detection and output parsing callback support"
   spec.description   = "Invoke Helm 3.x commands from Ruby with easy result handling"
   spec.homepage      = "https://github.com/internetbrands/rhelm"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.5")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.7")
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
