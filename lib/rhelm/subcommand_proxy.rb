@@ -1,5 +1,4 @@
 require 'open3'
-require 'pry-byebug'
 
 module Rhelm
   class Client
