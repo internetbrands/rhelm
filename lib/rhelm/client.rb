@@ -6,7 +6,7 @@ module Rhelm
     class Error < StandardError; end
 
     SUBCOMMANDS = %i(
-      dependency env history install pull rollback
+      dependency env history install lint list pull rollback
       status test uninstall upgrade verify version
     )
     SUBCOMMANDS.each { |s| require_relative "subcommand/#{s}" }

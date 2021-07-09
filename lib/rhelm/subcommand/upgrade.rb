@@ -12,7 +12,6 @@ module Rhelm
                   :cert_file,
                   :cleanup_on_fail,
                   :create_namespace,
-                  :dependency_update,
                   :description,
                   :devel,
                   :disable_openapi_validation,
@@ -26,6 +25,7 @@ module Rhelm
                   :keyring,
                   :no_hooks,
                   :output,
+                  :pass_credentials,
                   :password,
                   :post_renderer,
                   :render_subchart_notes,
@@ -41,8 +41,8 @@ module Rhelm
                   :values,
                   :verify,
                   :version,
-                  :wait
-
+                  :wait,
+                  :wait_for_jobs
 
       def initialize(release, chart, options = {})
         super(options)
@@ -53,7 +53,7 @@ module Rhelm
         @ca_file = options[:ca_file]
         @cert_file = options[:cert_file]
         @cleanup_on_fail = !!options[:cleanup_on_fail]
-        @dependency_update = !!options[:dependency_update]
+        @create_namespace = !!options[:create_namespace]
         @description = options[:description]
         @devel = !!options[:devel]
         @disable_openapi_validation = !!options[:disable_openapi_validation]
@@ -67,6 +67,7 @@ module Rhelm
         @keyring = options[:keyring]
         @no_hooks = !!options[:no_hooks]
         @output = options[:output]
+        @pass_credentials = options[:pass_credentials]
         @password = options[:password]
         @post_renderer = options[:post_renderer]
         @render_subchart_notes = !!options[:render_subchart_notes]
@@ -83,6 +84,7 @@ module Rhelm
         @verify = !!options[:verify]
         @version = options[:version]
         @wait = !!options[:wait]
+        @wait_for_jobs = !!options[:wait_for_jobs]
       end
 
       def subcommand_name
@@ -95,7 +97,7 @@ module Rhelm
           args << ['--ca-file', ca_file] if ca_file
           args << ['--cert-file', cert_file] if cert_file
           args << '--cleanup-on-fail' if cleanup_on_fail
-          args << '--dependency-update' if dependency_update
+          args << '--create-namespace' if create_namespace
           args << ['--description', description] if description
           args << '--devel' if devel
           args << '--disable-openapi-validation' if disable_openapi_validation
@@ -109,6 +111,7 @@ module Rhelm
           args << ['--keyring', keyring] if keyring
           args << '--no-hooks' if no_hooks
           args << ['--output', output] if output
+          args << '--pass-credentials' if pass_credentials
           args << ['--password', password] if password
           args << ['--post-renderer', post_renderer] if post_renderer
           args << '--render-subchart-notes' if render_subchart_notes
@@ -157,8 +160,9 @@ module Rhelm
           end
 
           args << '--verify' if verify
-          args << ['version', version] if version
+          args << ['--version', version] if version
           args << '--wait' if wait
+          args << '--wait-for-jobs' if wait_for_jobs
 
           args << release
           args << chart
