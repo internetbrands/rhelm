@@ -22,6 +22,7 @@ module Rhelm
                   :name_template,
                   :no_hooks,
                   :output,
+                  :pass_credentials,
                   :password,
                   :post_renderer,
                   :release,
@@ -37,7 +38,8 @@ module Rhelm
                   :values,
                   :verify,
                   :version,
-                  :wait
+                  :wait,
+                  :wait_for_jobs
 
       def initialize(release, chart, options = {})
         super(options)
@@ -60,6 +62,7 @@ module Rhelm
         @name_template = options[:name_template]
         @no_hooks = options[:no_hooks]
         @output = options[:output]
+        @pass_credentials = options[:pass_credentials]
         @password = options[:password]
         @post_renderer = options[:post_renderer]
         @render_subchart_notes = options[:render_subchart_notes]
@@ -75,6 +78,7 @@ module Rhelm
         @verify = options[:verify]
         @version = options[:version]
         @wait = options[:wait]
+        @wait_for_jobs = options[:wait_for_jobs]
       end
 
       def subcommand_name
@@ -99,6 +103,7 @@ module Rhelm
           args << ['--name-template', name_template] if name_template
           args << '--no-hooks' if no_hooks
           args << ['--output', output] if output
+          args << '--pass-credentials' if pass_credentials
           args << ['--password', password] if password
           args << ['--post-renderer', post_renderer] if post_renderer
           args << '--render-subchart-notes' if render_subchart_notes
@@ -146,8 +151,9 @@ module Rhelm
           end
 
           args << '--verify' if verify
-          args << ['version', version] if version
+          args << ['--version', version] if version
           args << '--wait' if wait
+          args << '--wait-for-jobs' if wait_for_jobs
 
           args << release
           args << chart

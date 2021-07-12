@@ -13,6 +13,7 @@ module Rhelm
                   :insecure_skip_tls_verify,
                   :key_file,
                   :keyring,
+                  :pass_credentials,
                   :password,
                   :prov,
                   :repo,
@@ -33,7 +34,9 @@ module Rhelm
         @insecure_skip_tls_verify = !!options[:insecure_skip_tls_verify]
         @key_file = options[:key_file]
         @keyring = options[:keyring]
+        @pass_credentials = options[:pass_credentials]
         @password = options[:password]
+        @prov = options[:prov]
         @repo = options[:repo]
         @untar = !!options[:untar]
         @untardir = options[:untardir]
@@ -55,7 +58,9 @@ module Rhelm
           args << '--insecure-skip-tls-verify' if insecure_skip_tls_verify
           args << ['--key-file', key_file] if key_file
           args << ['--keyring', keyring] if keyring
+          args << '--pass-credentials' if pass_credentials
           args << ['--password', password] if password
+          args << '--prov' if prov
           args << ['--repo', repo] if repo
           args << '--untar' if untar
           args << ['--untardir', untardir] if untardir
