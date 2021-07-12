@@ -67,7 +67,10 @@ module Rhelm
       end
 
       def report_failure(lines, status, and_raise: true)
-        preamble = "#{full_cli_call} failed with exit status #{status}. Output follows:"
+        sanitized_full_cli_call = full_cli_call
+        kube_token_index = sanitized_full_cli_call.find_index("--kube-token")
+        sanitized_full_cli_call[kube_token_index + 1] = "[REDACTED]" if kube_token_index
+        preamble = "#{sanitized_full_cli_call} failed with exit status #{status}. Output follows:"
         if @client.logger
           client.logger.error(preamble)
           client.logger.error(lines)
@@ -75,7 +78,7 @@ module Rhelm
           STDERR.puts premable
           STDERR.puts lines
         end
-        raise(Error, "#{full_cli_call} failed with exit_status #{status}") if and_raise
+        raise(Error, "#{sanitized_full_cli_call} failed with exit_status #{status}") if and_raise
       end
     end
   end
