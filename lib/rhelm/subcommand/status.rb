@@ -6,12 +6,18 @@ module Rhelm
     ## docs: https://helm.sh/docs/helm/helm_status/
     class Status < Base
       attr_reader :release_name,
+                  :output,
+                  :revision,
+                  :show_desc,
                   :help
 
       def initialize(release_name, options = {})
         super(options)
 
         @release_name = release_name
+        @output = options[:output]
+        @revision = options[:revision]
+        @show_desc = options[:show_desc]
         @help = options[:help]
       end
 
@@ -34,6 +40,9 @@ module Rhelm
       def cli_args
         super.tap do |args|
           args << '--help' if help
+          args << ['--output', output] if output
+          args << ['--revision', revision] if revision
+          args << '--show-desc' if show_desc
 
           args << release_name
         end.flatten
